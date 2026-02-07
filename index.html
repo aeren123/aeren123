@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2f6fed" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Ev Bütçe Takipçisi</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Ev Bütçe Takipçisi</h1>
+      <p>Gelir ve giderlerinizi anlık takip edin, kayıtlarınızı ev içinde yönetin.</p>
+    </div>
+    <button id="install-app" type="button" class="ghost" hidden>Uygulamayı Yükle</button>
+  </header>
+
+  <main class="app">
+    <section class="summary" aria-live="polite">
+      <div class="summary-card">
+        <h2>Toplam Gelir</h2>
+        <p id="total-income">₺0</p>
+      </div>
+      <div class="summary-card">
+        <h2>Toplam Gider</h2>
+        <p id="total-expense">₺0</p>
+      </div>
+      <div class="summary-card highlight">
+        <h2>Bakiye</h2>
+        <p id="balance">₺0</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Yeni Kayıt Ekle</h2>
+      <form id="entry-form">
+        <label>
+          Tür
+          <select id="entry-type" required>
+            <option value="income">Gelir</option>
+            <option value="expense">Gider</option>
+          </select>
+        </label>
+        <label>
+          Tutar (₺)
+          <input id="entry-amount" type="number" min="0" step="0.01" required />
+        </label>
+        <label>
+          Kategori
+          <input id="entry-category" type="text" placeholder="Örn. Maaş, Market" required />
+        </label>
+        <label>
+          Tarih
+          <input id="entry-date" type="date" required />
+        </label>
+        <label>
+          Not
+          <textarea id="entry-note" rows="2" placeholder="İsteğe bağlı"></textarea>
+        </label>
+        <button type="submit">Kaydı Ekle</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Kayıtlar</h2>
+        <div class="filters">
+          <label>
+            Filtre
+            <select id="filter-type">
+              <option value="all">Tümü</option>
+              <option value="income">Gelir</option>
+              <option value="expense">Gider</option>
+            </select>
+          </label>
+          <label>
+            Arama
+            <input id="search-input" type="search" placeholder="Kategori veya not" />
+          </label>
+        </div>
+      </div>
+      <div class="list-actions">
+        <button id="export-json" type="button">JSON İndir</button>
+        <button id="clear-all" type="button" class="danger">Tümünü Temizle</button>
+      </div>
+      <ul id="entry-list" class="entry-list" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Verileriniz sadece bu tarayıcıda saklanır (localStorage).</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
